@@ -42,6 +42,9 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
+	// BCrypt 密码加密
+	implementation("org.springframework.security:spring-security-crypto:6.3.0")
 }
 
 kotlin {

@@ -9,3 +9,4 @@ class ChituApplication
 fun main(args: Array<String>) {
 	runApplication<ChituApplication>(*args)
 }
+//.\gradlew bootRun

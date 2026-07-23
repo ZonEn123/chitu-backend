@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.chitu.DatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-16T13:09:22.506Z" hostname="TANGZ的PC" time="4.71">
+<testsuite name="com.example.chitu.DatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-07-23T13:40:03.191Z" hostname="TANGZ的PC" time="0.372">
   <properties/>
-  <testcase name="testConnection()" classname="com.example.chitu.DatabaseTest" time="0.909"/>
-  <system-out><![CDATA[21:09:22.655 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.chitu.DatabaseTest]: DatabaseTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-21:09:22.774 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.chitu.ChituApplication for test class com.example.chitu.DatabaseTest
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::                (v3.4.4)
-
-2026-07-16T21:09:23.147+08:00  INFO 12644 --- [chitu] [    Test worker] com.example.chitu.DatabaseTest           : Starting DatabaseTest using Java 17.0.19 with PID 12644 (started by 29947 in D:\Android_Project\chitu-backend)
-2026-07-16T21:09:23.149+08:00  INFO 12644 --- [chitu] [    Test worker] com.example.chitu.DatabaseTest           : No active profile set, falling back to 1 default profile: "default"
-Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
-Initialization Sequence datacenterId:0 workerId:5
- _ _   |_  _ _|_. ___ _ |    _ 
-| | |\/|_)(_| | |_\  |_)||_|_\ 
-     /               |         
-                        3.5.5 
-2026-07-16T21:09:26.271+08:00  INFO 12644 --- [chitu] [    Test worker] com.example.chitu.DatabaseTest           : Started DatabaseTest in 3.369 seconds (process running for 4.616)
-2026-07-16T21:09:26.278+08:00  WARN 12644 --- [chitu] [    Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
-2026-07-16T21:09:26.280+08:00  WARN 12644 --- [chitu] [    Test worker] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+  <testcase name="testConnection()" classname="com.example.chitu.DatabaseTest" time="0.364"/>
+  <system-out><![CDATA[2026-07-23T21:40:03.193+08:00  INFO 18696 --- [chitu] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.chitu.DatabaseTest]: DatabaseTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-07-23T21:40:03.196+08:00  INFO 18696 --- [chitu] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.chitu.ChituApplication for test class com.example.chitu.DatabaseTest
 Creating a new SqlSession
-SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@62c47480] was not registered for synchronization because synchronization is not active
-2026-07-16T21:09:26.990+08:00  INFO 12644 --- [chitu] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-07-16T21:09:27.131+08:00  INFO 12644 --- [chitu] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54033a65
-2026-07-16T21:09:27.133+08:00  INFO 12644 --- [chitu] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-JDBC Connection [HikariProxyConnection@878915766 wrapping com.mysql.cj.jdbc.ConnectionImpl@54033a65] will not be managed by Spring
+SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@443ac5b8] was not registered for synchronization because synchronization is not active
+2026-07-23T21:40:03.258+08:00  INFO 18696 --- [chitu] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-07-23T21:40:03.450+08:00  INFO 18696 --- [chitu] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@10e4cc6
+2026-07-23T21:40:03.452+08:00  INFO 18696 --- [chitu] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+JDBC Connection [HikariProxyConnection@991393180 wrapping com.mysql.cj.jdbc.ConnectionImpl@10e4cc6] will not be managed by Spring
 ==>  Preparing: SELECT user_id,phone,password,role,register_time,last_login_time,status FROM user
 ==> Parameters: 
 <==    Columns: user_id, phone, password, role, register_time, last_login_time, status
-<==        Row: 1, admin, admin123, 1, 2026-07-16 20:58:43, null, 1
-<==      Total: 1
-Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@62c47480]
-✅ 数据库连接成功！当前用户数：1
-]]>&#x1f4f1;<![CDATA[ 用户：admin，角色：管理员
+<==        Row: 2, 13800138000, $2a$10$TyT/68svlFgvNPYKJf8oEOFEX8eQtsBWjPbhZCVDiAh9RM15rYWgi, 0, null, 2026-07-16 22:46:43, 1
+<==        Row: 3, admin, $2a$10$yBs9l1w896zXwvEJEpKAY.cHhGaMV/a2opiis0sXZDhyeyU.vvyPu, 1, null, 2026-07-17 09:02:30, 1
+<==        Row: 4, 199, $2a$10$ojY1WHHpzOqSaHWY34DvE.bmm1EqVttmUaqJi00S.JEBf69fcc6MK, 0, null, 2026-07-21 20:42:28, 1
+<==        Row: 5, 198, $2a$10$DrX5LEvgg1n.316lIEdjQeOdX09FND.dKXUO3/7bhAcNvTlK02ul., 0, null, 2026-07-17 16:01:25, 1
+<==        Row: 6, 197, $2a$10$sCptacbEQLUtQcLdmWqICOhtOuHvA/Jwyq6rEnBfKvVDSsu.qNaLK, 0, null, 2026-07-17 11:44:52, 1
+<==        Row: 7, 19908420999, $2a$10$lT7KlJhPlSVFuRISVlm0/OKxA40psrt3yIlMgLL2fjDNJiPh2ORXS, 0, null, 2026-07-23 19:58:56, 1
+<==        Row: 8, 1990842095, $2a$10$vUW7VzBs7i5jNLw5Dr1n/eZXS.kUSTTymHFzI2GDoWaSWNptnvdjC, 0, null, null, 1
+<==        Row: 9, 19908420959, $2a$10$IuEaZh/NXh3lW3Zzf7IGUO9LBnyMZfluocYe2OKe4uUPaT9W.HpJ2, 0, null, 2026-07-17 22:36:54, 1
+<==      Total: 8
+Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@443ac5b8]
+? 数据库连接成功！当前用户数：8
+? 用户：13800138000，角色：普通司机
+? 用户：admin，角色：管理员
+? 用户：199，角色：普通司机
+? 用户：198，角色：普通司机
+? 用户：197，角色：普通司机
+? 用户：19908420999，角色：普通司机
+? 用户：1990842095，角色：普通司机
+? 用户：19908420959，角色：普通司机
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

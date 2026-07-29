@@ -2,8 +2,11 @@ package com.example.chitu.service
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.example.chitu.dto.TripSyncRequest
+import com.example.chitu.dto.TripVO
 import com.example.chitu.entity.TripLog
+import com.example.chitu.entity.User
 import com.example.chitu.mapper.TripLogMapper
+import com.example.chitu.mapper.UserMapper
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
@@ -13,7 +16,8 @@ import java.time.ZoneId
 
 @Service
 class TripService(
-    private val tripLogMapper: TripLogMapper
+    private val tripLogMapper: TripLogMapper,
+    private val userMapper: UserMapper
 ) {
 
     /**
@@ -76,12 +80,53 @@ class TripService(
         )
     }
 
+    /** 获取所有行程（含司机信息，管理员专用，排除已删除） */
+    fun getAllTripsWithUser(): List<TripVO> {
+        val trips = tripLogMapper.selectList(
+            QueryWrapper<TripLog>()
+                .eq("deleted", 0)
+                .orderByDesc("start_time")
+        )
+        if (trips.isEmpty()) return emptyList()
+
+        val userIds = trips.map { it.userId }.distinct()
+        val userMap = userMapper.selectBatchIds(userIds)
+            .associateBy { (it as User).userId }
+
+        return trips.map { trip ->
+            val user = userMap[trip.userId]
+            TripVO(
+                tripId = trip.tripId ?: 0,
+                userId = trip.userId,
+                phone = user?.phone ?: "未知",
+                startTime = trip.startTime,
+                endTime = trip.endTime,
+                duration = trip.duration,
+                startLocation = trip.startLocation,
+                endLocation = trip.endLocation,
+                distance = trip.distance ?: BigDecimal.ZERO,
+                tripStatus = trip.tripStatus,
+                fatigueFlag = trip.fatigueFlag
+            )
+        }
+    }
+
     /** 获取所有行程（管理员专用） */
     fun getAllTrips(): List<TripLog> {
         return tripLogMapper.selectList(
             QueryWrapper<TripLog>()
                 .orderByDesc("start_time")
         )
+    }
+
+    /** 逻辑删除行程（管理员操作） */
+    fun deleteTrip(tripId: Long): Boolean {
+        return tripLogMapper.update(
+            null,
+            com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper<TripLog>()
+                .eq("trip_id", tripId)
+                .set("deleted", 1)
+        ) > 0
     }
 
     /** 获取平台统计（管理员专用） */

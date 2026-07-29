@@ -55,5 +55,8 @@ data class TripLog(
     val endLatitude: Double = 0.0,
 
     @TableField("end_longitude")
-    val endLongitude: Double = 0.0
+    val endLongitude: Double = 0.0,
+
+    @TableField("deleted")
+    val deleted: Int = 0  // 0-正常 1-逻辑删除
 )

@@ -48,11 +48,14 @@ class UserService(
         val encryptedPassword = passwordEncoder.encode(request.password)
 
         // 3. 创建用户
+        val now = LocalDateTime.now()
         val user = User(
             phone = request.phone,
             password = encryptedPassword,
             role = 0,  // 默认普通司机
-            status = 1
+            status = 1,
+            registerTime = now,
+            lastLoginTime = now
         )
         userMapper.insert(user)
 
@@ -220,5 +223,48 @@ class UserService(
 
         val result = userProfileMapper.update(null, updateWrapper)
         return result > 0
+    }
+
+    /** 根据手机号查询用户 */
+    fun getUserByPhone(phone: String): User? {
+        return userMapper.selectOne(QueryWrapper<User>().eq("phone", phone))
+    }
+
+    /** 获取密保问题 */
+    fun getSecurityQuestion(userId: Long): String? {
+        val profile = userProfileMapper.selectOne(
+            QueryWrapper<UserProfile>().eq("user_id", userId)
+        )
+        return profile?.securityQuestion
+    }
+
+    /** 验证密保答案 */
+    fun verifySecurityAnswer(userId: Long, answer: String): Boolean {
+        val profile = userProfileMapper.selectOne(
+            QueryWrapper<UserProfile>().eq("user_id", userId)
+        )
+        return profile?.securityAnswer == answer
+    }
+
+    /** 修改密码（通过 userId） */
+    fun updatePassword(userId: Long, newPassword: String): Boolean {
+        val encoded = passwordEncoder.encode(newPassword)
+        return userMapper.update(
+            null,
+            UpdateWrapper<User>()
+                .eq("user_id", userId)
+                .set("password", encoded)
+        ) > 0
+    }
+
+    /** 修改密码（通过手机号） */
+    fun updatePasswordByPhone(phone: String, newPassword: String): Boolean {
+        val encoded = passwordEncoder.encode(newPassword)
+        return userMapper.update(
+            null,
+            UpdateWrapper<User>()
+                .eq("phone", phone)
+                .set("password", encoded)
+        ) > 0
     }
 }

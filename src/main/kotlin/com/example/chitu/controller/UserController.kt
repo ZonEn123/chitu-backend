@@ -1,5 +1,6 @@
 package com.example.chitu.controller
 
+import com.example.chitu.dto.ApiResponse
 import com.example.chitu.dto.UpdateProfileRequest
 import com.example.chitu.dto.UserProfileResponse
 import com.example.chitu.service.UserService
@@ -13,61 +14,38 @@ class UserController(
     private val jwtUtil: JwtUtil
 ) {
 
-    @PutMapping("/profile")
-    fun updateProfile(
-        @RequestHeader("Authorization") authorization: String,
-        @RequestBody request: UpdateProfileRequest   // ✅ 使用具体 DTO
-    ): Map<String, Any> {
-        val token = authorization.replace("Bearer ", "")
-        if (!jwtUtil.validateToken(token)) {
-            return mapOf(
-                "code" to 401,
-                "message" to "Token 无效或已过期"
-            )
-        }
-
-        val userId = jwtUtil.extractUserId(token)
-        val success = userService.updateUserProfile(userId, request)
-
-        return if (success) {
-            mapOf(
-                "code" to 200,
-                "message" to "更新成功"
-            )
-        } else {
-            mapOf(
-                "code" to 400,
-                "message" to "更新失败"
-            )
-        }
-    }
-
     @GetMapping("/profile")
     fun getProfile(
         @RequestHeader("Authorization") authorization: String
-    ): Map<String, Any> {
+    ): ApiResponse<UserProfileResponse> {
         val token = authorization.replace("Bearer ", "")
         if (!jwtUtil.validateToken(token)) {
-            return mapOf(
-                "code" to 401,
-                "message" to "Token 无效或已过期"
-            )
+            return ApiResponse.error(401, "Token 无效或已过期")
         }
-
         val userId = jwtUtil.extractUserId(token)
         val profile = userService.getUserProfile(userId)
-
         return if (profile != null) {
-            mapOf(
-                "code" to 200,
-                "message" to "success",
-                "data" to profile
-            )
+            ApiResponse.success(profile)
         } else {
-            mapOf(
-                "code" to 404,
-                "message" to "用户不存在"
-            )
+            ApiResponse.error(404, "用户不存在")
+        }
+    }
+
+    @PutMapping("/profile")
+    fun updateProfile(
+        @RequestHeader("Authorization") authorization: String,
+        @RequestBody request: UpdateProfileRequest
+    ): ApiResponse<Any> {
+        val token = authorization.replace("Bearer ", "")
+        if (!jwtUtil.validateToken(token)) {
+            return ApiResponse.error(401, "Token 无效或已过期")
+        }
+        val userId = jwtUtil.extractUserId(token)
+        val success = userService.updateUserProfile(userId, request)
+        return if (success) {
+            ApiResponse.success(message = "更新成功")
+        } else {
+            ApiResponse.error(400, "更新失败")
         }
     }
 }

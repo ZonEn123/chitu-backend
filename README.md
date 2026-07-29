@@ -332,9 +332,9 @@ data class ApiResponse<T>(val code: Int, val message: String, val data: T? = nul
 
 ## 📸 API 文档截图
 
-| Swagger 文档 | <!-- 待上传 --> |
-|:-------------|:----------------|
-<!-- Swagger 截图 -->
+| Swagger 接口文档 |
+|:-----------------|
+| <img src="docs/screenshots/Swagger 文档.png" width="600"> |
 
 ---
 
